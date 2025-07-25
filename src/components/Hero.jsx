@@ -1,10 +1,17 @@
 import gsap from  'gsap';
 import { useGSAP } from '@gsap/react'
 import { SplitText } from 'gsap/all';
+import ScrollTrigger from 'gsap/ScrollTrigger'; 
+import { useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 
-gsap.registerPlugin(SplitText);
 
-function Hero() {
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
+const Hero =() => {
+ const videoRef = useRef();
+
+const isMobile = useMediaQuery({ maxWidth: 767 });    
 
 useGSAP(() => {
     const heroSplit = new SplitText('.title', { type: 'chars, words' })
@@ -29,11 +36,46 @@ useGSAP(() => {
 	 delay: 1,
 	});
 
+   gsap
+	.timeline({
+	 scrollTrigger: {
+		trigger: "#hero",
+		start: "top top",
+		end: "bottom top",
+		scrub: true,
+	 },
+	})
+	.to(".right-leaf", { y: 250 }, 0)
+	.to(".left-leaf", { y: -100 }, 0)
+	.to(".arrow", { y: 100 }, 0);
+
+    const startValue = isMobile ? "top 50%" : "center 60%";
+	const endValue = isMobile ? "120% top" : "bottom top";
+
+
+let tl = gsap.timeline({
+	 scrollTrigger: {
+		trigger: "video",
+		start: startValue,
+		end: endValue,
+		scrub: true,
+		pin: true,
+        
+	 },
+	});
+	
+	videoRef.current.onloadedmetadata = () => {
+	 tl.to(videoRef.current, {
+		currentTime: videoRef.current.duration,
+	 });
+	};
+
 }, []);           //[] = it will run on the start
 
 
 
   return (
+    <>
     <section id='hero' className='noisy'>
       <h1 className='title font-guy' >MOJITo</h1>
        <img className='left-leaf' src="/images/hero-left-leaf.png" alt="leaf" />
@@ -62,7 +104,20 @@ useGSAP(() => {
 </div>
 
     </section>
+
+ <div className="video absolute inset-0">
+		<video
+		 ref={videoRef}
+		 muted
+		 playsInline
+		 preload="auto"
+		 src="/videos/output.mp4"
+		/>
+	 </div>
+
+
+    </>
   )
 }
 
-export default Hero
+export default Hero;
