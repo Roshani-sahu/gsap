@@ -1,8 +1,12 @@
 import React from 'react'
 
+
 function About() {
   return (
-    <div>
+    <div id='about'>
+        <div className='mb-16 md:px-0 '>
+
+        </div>
       
     </div>
   )
