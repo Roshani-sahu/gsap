@@ -68,14 +68,14 @@ const VerticalCarousel = () => {
       scrollTrigger: {
         trigger: container,
         pin: true,
-        scrub: 1.8, // Slightly faster for more responsive parallax
+        scrub: 4, // Much slower for gradual, smooth scrolling
         snap: {
           snapTo: 1 / (imageRows.length - 1),
-          duration: { min: 0.8, max: 1.5 },
-          delay: 0.3,
-          ease: 'power3.inOut'
+          duration: { min: 1.2, max: 2.5 },
+          delay: 0.8,
+          ease: 'power4.inOut'
         },
-        end: () => `+=${(imageRows.length - 1) * window.innerHeight * 1.5}`,
+        end: () => `+=${(imageRows.length - 1) * window.innerHeight * 3}`,
         onUpdate: (self) => {
           // Update progress indicator
           const progress = self.progress;
@@ -138,8 +138,8 @@ const VerticalCarousel = () => {
                 opacity: opacityEffect,
                 scale: scaleEffect,
                 rotation: rotationAmount,
-                duration: 1.0,
-                ease: 'power2.out'
+                duration: 1.8,
+                ease: 'power1.out'
               });
             });
           });

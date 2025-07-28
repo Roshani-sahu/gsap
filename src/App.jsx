@@ -8,6 +8,8 @@ import Cocktails from './components/Cocktails'
 import About from './components/About'
 import HorizontalCarousel from './components/HorizontalCarousel'
 import CarouselDemo from './components/CarouselDemo'
+import TickerScroll from './components/TickerScroll'
+import ImageTicker from './components/ImageTicker'
 
 gsap.registerPlugin(ScrollTrigger, SplitText); 
 
@@ -17,12 +19,18 @@ const App = () => {
 
   return (
     <main>
-      {/* You can use either the standalone carousel or integrate it with your existing layout */}
+      {/* You can choose between different design options */}
       
-      {/* Option 1: Full carousel demo */}
-      <CarouselDemo />
+      {/* Option 1: Image Ticker with 4 rows (NEW) */}
+      <ImageTicker />
       
-      {/* Option 2: Integrated with existing components (comment out CarouselDemo above and uncomment below) */}
+      {/* Option 2: Text Ticker Scroll (comment out ImageTicker above and uncomment below) */}
+      {/* <TickerScroll /> */}
+      
+      {/* Option 3: Original Carousel Demo (comment out above and uncomment below) */}
+      {/* <CarouselDemo /> */}
+      
+      {/* Option 4: Integrated with existing components (comment out above and uncomment below) */}
       {/* 
       <Navbar/>
       <Hero/>
