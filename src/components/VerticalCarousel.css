@@ -1,0 +1,407 @@
+/* Vertical Carousel Styles - Minimal Design */
+.vertical-carousel-section {
+  position: relative;
+  overflow: hidden;
+  background: #000000; /* Pure black background */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  height: 400vh; /* 4 rows × 100vh each */
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  padding: 1rem; /* Reduced padding */
+}
+
+.row {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem; /* Reduced gap between images */
+}
+
+.image-container {
+  position: relative;
+  width: 14rem; /* Reduced from 16rem to 14rem (224px) */
+  height: 14rem; /* Reduced from 16rem to 14rem (224px) */
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity; /* Enhanced for smooth parallax */
+  cursor: pointer;
+  border-radius: 0.75rem; /* Slightly smaller border radius */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+  transform-style: preserve-3d; /* Enable 3D transforms for smoother movement */
+}
+
+/* Backdrop blur effect for modern look */
+.image-container::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-radius: 0.75rem; /* Match updated border radius */
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover::before {
+  opacity: 1;
+}
+
+.image-container:hover {
+  transform: scale(1.05) translateY(-5px) translateZ(10px); /* Enhanced hover with 3D effect */
+  z-index: 10;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+}
+
+.image-container div[style*="background-image"] {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 0.75rem; /* Match parent border radius */
+  transform-style: preserve-3d; /* Enable 3D transforms for background images */
+}
+
+.image-container:hover div[style*="background-image"] {
+  transform: scale(1.1) translateZ(5px); /* More zoom on hover with 3D effect */
+}
+
+/* Progress bar animation - Horizontal minimal style */
+.progress-bar {
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  background: #ffffff;
+  height: 1px;
+}
+
+/* Remove minimal borders since we now have individual cards */
+/* .image-container:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.row:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+} */
+
+/* Clean hover states */
+.image-container .group {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Minimal typography */
+.image-container h3,
+.image-container p {
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+/* Clean button styles */
+.image-container button,
+.image-container div[role="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.image-container button:hover,
+.image-container div[role="button"]:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Smooth scrolling */
+* {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced smooth scrolling for the carousel */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbars */
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Slide animations */
+.slide-content h3 {
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.slide-content p {
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.slide-content button {
+  animation: fadeInUp 1s ease-out 0.7s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button hover effects */
+.slide-content button {
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-content button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.slide-content button:hover::before {
+  left: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .slide-content h3 {
+    font-size: 3rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .slide-content p {
+    font-size: 1.25rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .slide-content button {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  .slide-content .flex {
+    flex-direction: column !important;
+  }
+  
+  .slide-content .flex button:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .slide-content h3 {
+    font-size: 2.5rem !important;
+  }
+  
+  .slide-content p {
+    font-size: 1.125rem !important;
+  }
+  
+  .fixed.top-8.left-8 h2 {
+    font-size: 2.5rem !important;
+  }
+  
+  .fixed.top-8.left-8 p {
+    font-size: 1rem !important;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .slide-content,
+  .slide-bg,
+  .progress-bar,
+  .slide-content * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  .slide-overlay {
+    z-index: 3;
+  }
+}
+
+/* Loading states */
+.slide-bg[style*="background-image"] {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Performance optimizations for smooth parallax */
+.carousel-wrapper,
+.row,
+.image-container,
+.image-container div[style*="background-image"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px; /* Enable hardware acceleration */
+}
+
+/* Add smooth transitions for the overall container */
+.carousel-wrapper {
+  will-change: transform;
+}
+
+/* Optimize image rendering */
+.image-container div[style*="background-image"] {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Enhance 3D effects */
+.row {
+  transform-style: preserve-3d;
+}
+
+/* Responsive design - Tighter square cards */
+@media (max-width: 1200px) {
+  .image-container {
+    width: 12rem; /* Smaller squares on smaller screens */
+    height: 12rem;
+  }
+  
+  .row {
+    gap: 0.375rem; /* Even tighter gap */
+  }
+}
+
+@media (max-width: 1024px) {
+  .image-container {
+    width: 10rem; /* Even smaller on tablet */
+    height: 10rem;
+  }
+  
+  .row {
+    gap: 0.25rem; /* Very tight gap */
+  }
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    width: 8rem; /* Compact on mobile */
+    height: 8rem;
+  }
+  
+  .row {
+    gap: 0.25rem;
+  }
+  
+  .carousel-wrapper {
+    padding: 0.5rem;
+  }
+  
+  .image-container:hover {
+    transform: scale(1.02) translateY(-2px); /* Reduced hover effect on mobile */
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    flex-wrap: wrap; /* Allow wrapping instead of stacking */
+    gap: 0.5rem;
+    justify-content: center;
+    align-content: center;
+    height: 100vh;
+  }
+  
+  .image-container {
+    width: 10rem; /* 2x2 grid on small mobile */
+    height: 10rem;
+  }
+  
+  .carousel-wrapper {
+    height: 400vh; /* Keep same height since we're wrapping, not stacking */
+    padding: 1rem;
+  }
+}
+
+/* Focus states for accessibility */
+.slide-content button:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Slide counter animations */
+.fixed.bottom-8.left-8 > div > div {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother counter transitions */
+}
+
+.fixed.bottom-8.left-8 > div > div:hover {
+  transform: scale(1.2);
+}
+
+/* Enhanced glassmorphism effects */
+.slide-content button {
+  backdrop-filter: blur(10px);
+  border-radius: 2px;
+}
+
+/* Improved text shadows for better readability */
+.slide-content h3,
+.slide-content p {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Progress bar glow effect */
+.progress-bar {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Parallax enhancement */
+.slide-bg {
+  transform-style: preserve-3d;
+}
+
+/* Custom cursor for interactive elements */
+.slide-content button {
+  cursor: pointer;
+}
+
+.slide-content button:hover {
+  cursor: pointer;
+}
